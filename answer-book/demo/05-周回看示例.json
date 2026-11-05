@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "title": "这一周，先回到那张还没画的草图。",
+  "pages": [
+    {
+      "date": "2026-11-05",
+      "no": "0005",
+      "mode": "review",
+      "theme": "时间与消耗",
+      "issue_key": "learning-without-use",
+      "quote": "这周又买了一门课。我还是没敢动作品集。",
+      "title": "这一周，先回到那张还没画的草图。",
+      "origin": "《庄子·养生主》开篇先把有限的生命与无限的知识放在一起，紧接着提醒：拿有限追逐无限，会有危险。它谈养生的限度，并没有反对一切学习。",
+      "gloss": "这是一份虚构的周回看示例。假定11月1日至5日保存了三次关于“课程与作品集”的记录，而最近一次用户明确说行为没变。能确认的只有这三条已保存记录，不能据此判断他整个月都在回避。\n\n此时不需要再找第四种学习理论。更有用的问题是：上一页留下的那一个晚上，发生了什么？是没有空档，还是打开画布时卡在了某一步？",
+      "context_note": "本页借用“有限与无限”的张力检查学习安排。作品练习是当代延伸，不是庄子的课程建议。",
+      "source_mode": "bank",
+      "quote_id": "zhuangzi-yangshengzhu-1",
+      "dissent": "《道德经》把大事与微小的开端连在一起。承认学不完，也可能被拿来解释一直没动手。所以少开一门课之后，最好留下一个足够小、今天就能开始的位置。",
+      "dissent_quote_id": "daodejing-64",
+      "criterion": "如果那一个晚上没有被留出来，就先确认现实里可用的二十分钟；如果已经打开画布但没画下去，就只记录停在哪一步。两种情况需要不同的实验，不能一概解释为不够自律。",
+      "action": "如果愿意，先把上次没发生的那个晚上写成三句话：本来打算何时开始、实际发生了什么、最先卡住的是哪一步。这周只带回这三句话，再决定要不要改实验。",
+      "question": "那张草图没出现之前，是哪一个具体时刻先被改写了？",
+      "action_status": "unknown",
+      "behavior_unchanged": true,
+      "action_result": "",
+      "_source": {
+        "id": "zhuangzi-yangshengzhu-1",
+        "work": "庄子",
+        "chapter": "养生主",
+        "ref": "第1段（吾生也有涯）",
+        "original": "吾生也有涯，而知也无涯。以有涯随无涯，殆已。",
+        "gloss": "生命有限，知识却没有尽头；用有限的生命去追逐无限的知识，只会把自己拖垮。",
+        "theme": [
+          "时间与消耗"
+        ],
+        "source_url": "https://zh.wikisource.org/wiki/%E8%8E%8A%E5%AD%90/%E9%A4%8A%E7%94%9F%E4%B8%BB?variant=zh-hans",
+        "license": "public-domain",
+        "verified": true,
+        "cite": "《庄子·养生主》",
+        "locator": "第1段（吾生也有涯）",
+        "provenance": "supplied-v0.1"
+      },
+      "_dissent_source": {
+        "id": "daodejing-64",
+        "work": "道德经",
+        "chapter": "第六十四章",
+        "ref": "64",
+        "original": "合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下。",
+        "gloss": "合抱粗的大树从细芽长起，九层的高台从一筐土堆起，千里的远行从脚下第一步开始。",
+        "theme": [
+          "时间与消耗",
+          "失败与脆弱"
+        ],
+        "source_url": "https://zh.wikisource.org/wiki/%E9%81%93%E5%BE%B7%E7%B6%93_(%E7%8E%8B%E5%BC%BC%E6%9C%AC)?variant=zh-hans",
+        "license": "public-domain",
+        "verified": true,
+        "cite": "《道德经》第六十四章",
+        "locator": "",
+        "provenance": "supplied-v0.1"
+      }
+    }
+  ]
+}

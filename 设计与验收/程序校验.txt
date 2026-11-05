@@ -1,0 +1,25 @@
+test_blocked_marginal_note_rejected (__main__.BehaviorChecks) ... ok
+test_corrupt_record_is_disclosed (__main__.BehaviorChecks) ... ok
+test_date_window_excludes_old_and_future_records (__main__.BehaviorChecks) ... ok
+test_dissent_cannot_bypass_bank (__main__.BehaviorChecks) ... ok
+test_examples_and_exports (__main__.BehaviorChecks) ... ok
+test_handwritten_original_and_source_rejected (__main__.BehaviorChecks) ... ok
+test_library_and_theme_routes (__main__.BehaviorChecks) ... ok
+test_missing_quote_cannot_bypass_bank (__main__.BehaviorChecks) ... ok
+test_no_raw_quote_saved_to_history (__main__.BehaviorChecks) ... ok
+test_no_silent_overwrite (__main__.BehaviorChecks) ... ok
+test_non_https_source_is_rejected (__main__.BehaviorChecks) ... ok
+test_paraphrase_without_fake_quote (__main__.BehaviorChecks) ... ok
+test_python_and_local_links (__main__.BehaviorChecks) ... ok
+test_record_update_rejects_path (__main__.BehaviorChecks) ... ok
+test_repeated_issue_needs_explicit_unchanged (__main__.BehaviorChecks) ... ok
+test_same_theme_different_issue_is_not_recurrence (__main__.BehaviorChecks) ... ok
+test_truthy_is_not_verified (__main__.BehaviorChecks) ... ok
+test_unknown_quote_rejected (__main__.BehaviorChecks) ... ok
+test_unknown_status_is_not_nonaction (__main__.BehaviorChecks) ... ok
+test_user_html_is_inert (__main__.BehaviorChecks) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.100s
+
+OK

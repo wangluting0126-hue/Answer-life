@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "title": "转弯之前，先读这两页",
+  "pages": [
+    {
+      "date": "2026-11-05",
+      "no": "0001",
+      "mode": "dossier",
+      "theme": "自我与身份",
+      "issue_key": "career-portable-skill",
+      "quote": "我32岁，在杭州做运营，月薪3万。上个月换了领导，每天都在给他做PPT。存款80万，房贷每月1万2。我想开咖啡馆，又怕离开公司什么都不是。",
+      "title": "离开这张工牌，\n还有谁会来找你？",
+      "origin": "《论语·为政》留下“君子不器”这个短句。它谈的是一个人不应被某一种器具的功用限制，并没有回答现代人要不要辞职。把这句话放在你的工牌旁边，是一次借读。",
+      "gloss": "你在杭州做运营，月薪三万，换领导后日常变成了做PPT。你说“怕离开公司什么都不是”，比开咖啡馆这件事更值得先停一下：离开平台后，哪些能力还能被别人认出来？\n\n八十万存款和每月一万二的房贷，是需要认真计算的现实。它们暂时不能说明咖啡馆是否有人愿意来，也不能说明你做运营的能力是否离开公司就失效。这两件事都还需要样本。",
+      "context_note": "原意讨论君子的通达与不局限于一才一艺；本页借它观察职业能力是否可携带。可携带能力不等于必须离职，也不等于样样都会。",
+      "source_mode": "bank",
+      "quote_id": "lunyu-2-12",
+      "dissent": "《庄子·人间世》还留下一种不同的关注：有些东西的价值，恰恰不会被现成的用途认出来。若连下班后的一杯咖啡都必须证明能赚钱，你可能又把全部生活放进了另一张工牌。可以验证生意，也留一点暂时不用出售的喜欢。",
+      "dissent_quote_id": "zhuangzi-renjianshi-3",
+      "criterion": "这周把一项运营服务写给三位公司外的潜在需求者。若至少一位愿意讨论具体需求与预算，继续验证交付；若只有客套点赞，先修改服务和样例。这是下一轮取样的分界，不是三次回复就能决定辞职。咖啡馆的客流与成本还需另行验证。",
+      "action": "七天内，花一个晚上把最拿手的一项运营工作写成一页服务说明，附一个脱敏样例和你能交付的结果。由你决定是否发给三位公司外的人，只问：“如果不用我公司的名字，你会在哪个具体问题上找我？”留下三份原话，下周再读。",
+      "question": "那三个人认出的你，\n会和工牌上的你有什么不同？",
+      "action_status": "unknown",
+      "action_result": "",
+      "behavior_unchanged": null,
+      "_source": {
+        "id": "lunyu-2-12",
+        "work": "论语",
+        "chapter": "为政",
+        "ref": "2.12",
+        "original": "子曰：“君子不器。”",
+        "gloss": "人的价值不能被某一种固定用途框住，不能像器具那样只派一个用场。",
+        "theme": [
+          "自我与身份"
+        ],
+        "source_url": "https://zh.wikisource.org/wiki/%E8%AB%96%E8%AA%9E/%E7%88%B2%E6%94%BF%E7%AC%AC%E4%BA%8C?variant=zh-hans",
+        "license": "public-domain",
+        "verified": true,
+        "cite": "《论语·为政》2.12",
+        "locator": "",
+        "provenance": "supplied-v0.1"
+      },
+      "_dissent_source": {
+        "id": "zhuangzi-renjianshi-3",
+        "work": "庄子",
+        "chapter": "人间世",
+        "ref": "第7段（孔子适楚）",
+        "original": "人皆知有用之用，而莫知无用之用也。",
+        "gloss": "人们都知道「有用」的用处，却不知道「无用」也有它的用处。",
+        "theme": [
+          "意义与虚无",
+          "自我与身份"
+        ],
+        "source_url": "https://zh.wikisource.org/wiki/%E8%8E%8A%E5%AD%90/%E4%BA%BA%E9%96%93%E4%B8%96?variant=zh-hans",
+        "license": "public-domain",
+        "verified": true,
+        "cite": "《庄子·人间世》",
+        "locator": "第7段（孔子适楚）",
+        "provenance": "supplied-v0.1"
+      }
+    },
+    {
+      "date": "2026-11-05",
+      "no": "0002",
+      "mode": "dossier",
+      "theme": "时间与消耗",
+      "issue_key": "learning-without-use",
+      "quote": "最近又买了六门课，每晚学到十二点，作品集还是一页没动。我怕少学一点，明年就被落下。",
+      "title": "六门课之后，\n先给那一页留个晚上。",
+      "origin": "《庄子·养生主》开篇先把有限的生命与无限的知识放在一起，紧接着提醒：拿有限追逐无限，会有危险。它谈养生的限度，并没有反对一切学习。",
+      "gloss": "你并没有少花时间。六门课、每晚十二点，已经很用力了。眼下可以先检查的，是其中哪一节能推动作品集的第一页，哪一节只让“落下”这件事暂时安静。\n\n这一页先不问明年能不能追上别人。先看今晚的一个小时，能不能从输入变成一张别人看得见的草图。",
+      "context_note": "本页借用“有限与无限”的张力检查学习安排。作品练习是当代延伸，不是庄子的课程建议。",
+      "source_mode": "bank",
+      "quote_id": "zhuangzi-yangshengzhu-1",
+      "dissent": "《道德经》把大事与微小的开端连在一起。承认学不完，也可能被拿来解释一直没动手。所以少开一门课之后，最好留下一个足够小、今天就能开始的位置。",
+      "dissent_quote_id": "daodejing-64",
+      "criterion": "这周只检验一门课：若一节内容能直接用于作品集第一页，就保留这一节并试用；若说不出用在哪，就先移出本周安排。七天后看有没有一张新草图，不用学时总数给自己打分。",
+      "action": "如果愿意，这七天选一个晚上，把原来上课的一小时留给作品集第一页。先做一张粗糙草图，记下真正缺的一个知识点，再回课程里找它。",
+      "question": "等你需要那一点知识时再学，\n你最担心会错过什么？",
+      "action_status": "unknown",
+      "action_result": "",
+      "behavior_unchanged": null,
+      "_source": {
+        "id": "zhuangzi-yangshengzhu-1",
+        "work": "庄子",
+        "chapter": "养生主",
+        "ref": "第1段（吾生也有涯）",
+        "original": "吾生也有涯，而知也无涯。以有涯随无涯，殆已。",
+        "gloss": "生命有限，知识却没有尽头；用有限的生命去追逐无限的知识，只会把自己拖垮。",
+        "theme": [
+          "时间与消耗"
+        ],
+        "source_url": "https://zh.wikisource.org/wiki/%E8%8E%8A%E5%AD%90/%E9%A4%8A%E7%94%9F%E4%B8%BB?variant=zh-hans",
+        "license": "public-domain",
+        "verified": true,
+        "cite": "《庄子·养生主》",
+        "locator": "第1段（吾生也有涯）",
+        "provenance": "supplied-v0.1"
+      },
+      "_dissent_source": {
+        "id": "daodejing-64",
+        "work": "道德经",
+        "chapter": "第六十四章",
+        "ref": "64",
+        "original": "合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下。",
+        "gloss": "合抱粗的大树从细芽长起，九层的高台从一筐土堆起，千里的远行从脚下第一步开始。",
+        "theme": [
+          "时间与消耗",
+          "失败与脆弱"
+        ],
+        "source_url": "https://zh.wikisource.org/wiki/%E9%81%93%E5%BE%B7%E7%B6%93_(%E7%8E%8B%E5%BC%BC%E6%9C%AC)?variant=zh-hans",
+        "license": "public-domain",
+        "verified": true,
+        "cite": "《道德经》第六十四章",
+        "locator": "",
+        "provenance": "supplied-v0.1"
+      }
+    }
+  ]
+}

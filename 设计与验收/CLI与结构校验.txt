@@ -1,0 +1,6 @@
+CLI: render -> record -> update -> review PASS (isolated temporary history)
+HTML: 6 files checked for balanced structural tags and local links PASS
+JavaScript: copy / download / print enhancement syntax PASS
+YAML: Ruby standard-library safe parser checked frontmatter, name, description, UI default prompt PASS
+Bundled quick_validate.py attempted; unavailable dependency PyYAML prevented running that validator. Equivalent frontmatter fields checked separately; runtime needs no PyYAML.
+Browser: reference page visually inspected; local file:// preview blocked by browser URL policy, no local visual/browser interaction tests claimed.

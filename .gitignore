@@ -1,0 +1,12 @@
+# Generated personal outputs and histories
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+output/
+.answer-book/
+runs/
+sessions/

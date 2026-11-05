@@ -1,0 +1,4 @@
+interface:
+  display_name: "答案之书"
+  short_description: "从一个具体纠结出发，翻到有出处的一页书，留下判据与七天小实验。"
+  default_prompt: "请用 $answer-book 陪我读一读最近卡住的这件事，给我一页有出处、也有异议的答案。"
