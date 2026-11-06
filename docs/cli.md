@@ -64,6 +64,8 @@ ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= answerlife serve
 
 网页已由 `answerlife serve` 启动时，另开终端用 `answerlife chat`。直接运行 `answerlife` 也会保留正在运行的服务，只开启终端对话。如果占用端口的是其他服务，终端会提示占用情况。
 
+更新后请打开终端新打印的网页链接。链接上的 `ui` 参数随网页版本更新。如果旧标签页还显示之前的界面，可以强制刷新该页。
+
 服务默认监听 `127.0.0.1:8020`。遇到端口冲突，可以用 `lsof -nP -iTCP:8020 -sTCP:LISTEN` 查看监听进程，或用 `PORT=8021 answerlife serve` 改用其他端口。用 `PORT` 设置端口时，监听端口和生成的答案页链接会一起更新。可通过 `/health` 检查服务，通过 `/docs` 查看 API。
 
 ### 对话内命令

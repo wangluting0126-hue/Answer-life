@@ -13,11 +13,13 @@ from __future__ import annotations
 
 import argparse
 import errno
+import hashlib
 import json
 import os
 import socket
 import sys
 import threading
+from urllib.parse import urlsplit
 from urllib.request import ProxyHandler, build_opener
 
 from rich.console import Console
@@ -50,6 +52,15 @@ def _matches_local_web(host: str, port: int, data_home: str) -> bool:
     return isinstance(status, dict) and (
         status.get("app"), status.get("version"), status.get("home")
     ) == ("answerlife", __version__, data_home)
+
+
+def _web_entry_url(base_url: str) -> str:
+    from answerlife.settings import PACKAGE
+
+    revision = hashlib.sha256((PACKAGE / "web" / "index.html").read_bytes()).hexdigest()[:12]
+    url = urlsplit(base_url)
+    query = f"{url.query}&ui={revision}" if url.query else f"ui={revision}"
+    return url._replace(path=url.path or "/", query=query).geturl()
 
 
 def chat(with_server: bool) -> None:
@@ -85,7 +96,7 @@ def chat(with_server: bool) -> None:
         agent = Agent(store)
     _banner()
     if web_url:
-        console.print(f"[dim]网页版：{web_url}[/]")
+        console.print(f"[dim]网页版：{_web_entry_url(web_url)}[/]")
     console.print("\n[italic]今天过得怎么样？想说什么都可以。发 /skills 看看我会的几件事。[/]\n")
     conv = None
     while True:
@@ -259,7 +270,11 @@ def main() -> None:
     elif args.cmd == "serve":
         from answerlife import server
         from answerlife.settings import get_settings
-        console.print(f"答案之书 Agent 运行在 http://{args.host or get_settings().host}:{args.port or get_settings().port}")
+        settings = get_settings()
+        host = args.host or settings.host
+        port = args.port or settings.port
+        url_host = f"[{host}]" if ":" in host else host
+        console.print(f"答案之书 Agent 运行在 {_web_entry_url(f'http://{url_host}:{port}')}")
         server.serve(args.host, args.port, log_level="info")
     elif args.cmd == "setup":
         setup()

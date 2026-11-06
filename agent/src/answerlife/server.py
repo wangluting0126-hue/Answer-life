@@ -123,7 +123,7 @@ def _model_label() -> dict:
 
 @app.get("/", response_class=HTMLResponse)
 def index() -> FileResponse:
-    return FileResponse(WEB / "index.html")
+    return FileResponse(WEB / "index.html", headers={"Cache-Control": "no-store"})
 
 
 @app.get("/health")
