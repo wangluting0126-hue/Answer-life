@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="no-referrer">
+<title>{{title}} · 我的答案之书</title>
+<style>
+:root{--bg:#fffdf8;--paper:#f0f1e8;--ink:#292821;--stone:#57574d;--rule:#deded1;--accent:#3c4e3b;--serif:"Songti SC","STSong","Noto Serif CJK SC",Georgia,serif;--sans:"Kaiti SC",STKaiti,KaiTi,"楷体","Songti SC",serif;--mono:"SFMono-Regular",Consolas,monospace}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;color:var(--ink);font:18px/1.95 var(--serif);letter-spacing:.025em;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%2365655f' opacity='.12' filter='url(%23n)' d='M0 0h160v160H0z'/%3E%3C/svg%3E")}
+main{max-width:720px;margin:auto;padding:0 40px}.masthead{padding:44px 0 28px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:end;font:12px/1.8 var(--sans);color:var(--stone);letter-spacing:.22em}.masthead span{display:block;font:10px/2 var(--mono);letter-spacing:.16em}.meta{text-align:right;font:11px/1.8 var(--mono);letter-spacing:.08em}.hero{text-align:center;padding:52px 0 38px}.eyebrow,.hero-meta{font:11px/1.8 var(--sans);color:var(--stone);letter-spacing:.24em;margin:0 0 18px}.hero-meta{margin:22px 0 0;letter-spacing:.12em}.hero-meta span{margin:0 12px;color:var(--accent)}h1{font:400 clamp(29px,4vw,42px)/1.55 var(--sans);margin:0 auto;max-width:18em;letter-spacing:.045em;text-wrap:balance}.your-words{margin:0 0 46px;border-left:1px solid var(--rule);padding:0 0 0 20px;color:var(--stone);font-size:16px;line-height:1.9;white-space:pre-wrap}.your-words cite{display:block;margin-top:9px;font:11px/1.8 var(--sans);letter-spacing:.18em;font-style:normal}.section{margin:0 0 40px}p{margin:0 0 18px}p:last-child{margin-bottom:0}.label{display:block;font:400 12px/1.8 var(--sans);letter-spacing:.2em;color:var(--stone);margin:0 0 16px}.context-note{font:13px/1.9 var(--sans);color:var(--stone);padding-top:8px}.original{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:0 0 38px}.original summary{cursor:pointer;font:12px/1.8 var(--sans);color:var(--accent);padding:15px 24px 15px 0;position:relative;list-style:none}.original summary::-webkit-details-marker{display:none}.original summary:after{content:"+";position:absolute;right:2px;font-size:18px;top:10px}.original[open] summary:after{content:"−"}.original-inner{padding:6px 0 22px}.original blockquote{padding-left:20px;border-left:2px solid var(--accent);margin:0 0 18px;font:18px/2 var(--serif);white-space:pre-wrap}.original a{font:12px/1.8 var(--sans);color:var(--accent);text-decoration:underline;text-underline-offset:4px}.source-note{display:block;font:11px/1.9 var(--sans);color:var(--stone);margin-top:6px;letter-spacing:.03em}.divider{height:1px;width:32px;background:var(--rule);margin:44px auto}.dissent{color:#41413c;font-size:17px}.criterion{border-left:1px solid var(--accent);padding-left:22px}.experiment{background:var(--paper);padding:26px 28px;margin:0 0 46px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}.experiment .label{color:var(--accent)}.experiment-note{font:12px/1.8 var(--sans);color:var(--stone);margin-top:20px}.question{text-align:center;margin:50px 0 54px}.question>p:not(.label){font-size:22px;line-height:1.9;text-wrap:balance}.page-footer{border-top:1px solid var(--rule);padding:24px 0;display:flex;justify-content:space-between;gap:16px;font:11px/1.9 var(--sans);color:var(--stone)}.tools{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding:20px 0 26px}button{font:12px/1.8 var(--sans);letter-spacing:.1em;border:1px solid var(--rule);padding:10px 18px;background:transparent;color:var(--stone);cursor:pointer;min-height:44px}button:hover{border-color:var(--accent);color:var(--accent)}a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:5px}.status{text-align:center;min-height:24px;font:12px/1.8 var(--sans);color:var(--stone);margin-bottom:24px}.brand-footer{text-align:center;font:10px/2 var(--mono);letter-spacing:.18em;color:var(--stone);padding:0 0 40px}.chapter-nav{padding:26px 0 4px;font:12px/1.8 var(--sans);border-bottom:1px solid var(--rule)}.chapter-nav span{display:block;color:var(--stone);margin-bottom:10px}.chapter-nav a{display:block;color:var(--accent);padding:8px 0}.reading-page+.reading-page{border-top:2px solid var(--rule);margin-top:46px}.paraphrase{padding:22px;background:var(--paper);margin-bottom:38px}.no-js{font:12px/1.8 var(--sans);color:var(--stone);text-align:center}
+.bookmark{margin:20px auto 28px;max-width:440px;text-align:center;color:var(--stone);font:14px/1.9 var(--serif)}.bookmark summary{cursor:pointer;color:var(--accent);padding:14px;font:12px/1.8 var(--sans);letter-spacing:.15em}.bookmark p{margin:10px 0}.bookmark[open]{padding-bottom:16px;border-bottom:1px solid var(--rule)}
+@media(max-width:640px){body{font-size:17px}main{padding:0 22px}.masthead{padding:28px 0 22px}.hero{padding:40px 0 30px}h1{font-size:27px;line-height:1.65}.your-words{font-size:15px;margin-bottom:36px;padding-left:16px}.section{margin-bottom:34px}.experiment{padding:22px 20px}.question>p:not(.label){font-size:20px}.page-footer{display:block}.page-footer span{display:block}.question{margin:40px 0}.original summary{font-size:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{@page{size:A4;margin:18mm 17mm}html,body{background:white}body{font-size:11pt;line-height:1.8}body:before,.tools,.status,.brand-footer,.chapter-nav,.no-js,.bookmark{display:none}main{max-width:none;padding:0}.masthead{padding-top:0}.hero{padding:24px 0}h1{font-size:22pt}.question>p:not(.label){font-size:15pt}.section,.experiment,.original,.your-words,.question{break-inside:avoid}.reading-page+.reading-page{break-before:page;border:0}.original::details-content{display:block;content-visibility:visible}.original summary:after{display:none}.original-inner{display:block!important}.experiment{background:#f5f5f3;print-color-adjust:exact}}
+main{background:var(--bg);box-shadow:0 0 38px #59442c13}html{background:#f4f0e6}.meta{border-right:2px solid var(--accent);padding-right:9px}@media print{main{box-shadow:none}}
+</style>
+</head>
+<body>
+<main>{{navigation}}{{content}}
+<details class="bookmark"><summary>夹一枚书签</summary><p>你带来的问题，已经有了一张可以继续写的纸。</p><p>下次可以从这句开始：我试过了，结果是……</p><p class="source-note">哪天回来，接着说就好。</p></details>
+<div class="tools" aria-label="保存这一页"><button type="button" id="copy">复制文字</button><button type="button" id="download">下载文字版</button><button type="button" id="print">打印 / 存为 PDF</button></div>
+<p class="status" id="status" role="status" aria-live="polite"></p>
+<noscript><p class="no-js">完整内容可直接阅读；Markdown 在同名 .md 文件中。打印前可手动展开原文。</p></noscript>
+<p class="brand-footer">我的答案之书</p>
+</main>
+<script id="markdown-data" type="application/octet-stream">{{markdown_b64}}</script>
+<script>
+(()=>{'use strict';
+const text=new TextDecoder().decode(Uint8Array.from(atob(document.getElementById('markdown-data').textContent.trim()),c=>c.charCodeAt(0)));
+const status=document.getElementById('status');
+document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(text);status.textContent='文字已复制。';}catch(e){status.textContent='没能复制。可以先下载文字版。';}});
+document.getElementById('download').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='答案之书.md';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='文字版开始下载了。';});
+let states=[];
+const expand=()=>{states=Array.from(document.querySelectorAll('details')).map(d=>[d,d.open]);states.forEach(([d])=>{d.open=true;});};
+const restore=()=>{states.forEach(([d,open])=>{d.open=open;});states=[];};
+window.addEventListener('beforeprint',expand);window.addEventListener('afterprint',restore);
+document.getElementById('print').addEventListener('click',()=>window.print());
+})();
+</script>
+</body>
+</html>

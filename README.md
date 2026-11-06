@@ -2,6 +2,18 @@
 
 带着一个问题来，带着一页书和一件小事回去。
 
+## 运行 Agent
+
+最新版的网页、终端和 IM Agent 在 [agent/](agent/)，带有小鸟情绪记录、答案页、周报月报和个人资料。安装好 uv 后，可以先体验不需要密钥的网页演示。
+
+```bash
+cd agent
+uv sync --locked
+AI_PROVIDER=mock uv run --locked answerlife serve
+```
+
+打开 <http://127.0.0.1:8020>。完整启动和模型配置见 [Agent 使用说明](agent/README.md)。下面是原来可单独安装到 AI 客户端的技能及其演示。
+
 通过简短对话，把一个具体的人生纠结放到有出处的书页旁边，留下一个新的视角、一条可验证的判据和一个七天小实验。
 
 ## 四种使用方式

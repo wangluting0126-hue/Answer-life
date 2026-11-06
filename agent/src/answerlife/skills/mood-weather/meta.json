@@ -1,0 +1,8 @@
+{
+  "title": "情绪天气",
+  "tagline": "给此刻的心情起个名字",
+  "icon": "cloud",
+  "color": "#d9a25f",
+  "starter": "我想打个卡，说说今天的心情",
+  "order": 10
+}

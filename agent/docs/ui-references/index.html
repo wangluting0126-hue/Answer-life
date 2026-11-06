@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UI 参考图集</title>
+<style>
+:root{--bg:#f6f4f0;--card:#fff;--ink:#1f1d1a;--muted:#77706a;--line:#e6e1da;--accent:#c0765a}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--card:#1f1e1c;--ink:#ece8e2;--muted:#9c958c;--line:#33302c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+main{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;margin:0 0 6px;font-weight:600}
+.sub{color:var(--muted);margin:0 0 30px}
+h2{font-size:13px;letter-spacing:.1em;color:var(--muted);font-weight:600;margin:42px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.card img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-bottom:1px solid var(--line);cursor:zoom-in}
+.card .b{padding:16px 20px 18px}
+.card h3{margin:0;font-size:17px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:500;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.card p{margin:8px 0 0;color:var(--muted);font-size:14px}
+.card p b{color:var(--ink);font-weight:600}
+.card a{color:var(--accent);font-size:13px;text-decoration:none}
+.dir{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.dir div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.dir b{font-size:16px}.dir p{margin:6px 0 0;color:var(--muted);font-size:14px}
+dialog{border:0;padding:0;background:transparent;max-width:96vw}
+dialog img{max-width:96vw;max-height:92vh;border-radius:10px;display:block}
+dialog::backdrop{background:rgba(0,0,0,.75)}
+@media (max-width:600px){.grid{grid-template-columns:1fr}main{padding:24px 16px 60px}}
+</style>
+</head>
+<body>
+<main>
+<h1>UI 参考图集</h1>
+<p class="sub">2026-11-05 从各项目官网、在线演示和 README 实际截取。点图放大。看完告诉我你想往哪个方向走，或者哪几张的哪部分想要。</p>
+
+<h2>你点名的参考</h2>
+<div class="grid">
+  <div class="card"><img src="mindee.png" alt="Mindee App Store 截图"><div class="b"><h3>Mindee <span class="tag">AI 情绪伙伴 · iOS</span><span class="tag">App Store 4.6</span></h3>
+    <p><b>看点：</b>一只会发光的小鮟鱇鱼做吉祥物；薄荷绿到奶黄的大面积柔和渐变；“今日感觉怎么样”用一排彩色小圆球选情绪；“情绪弹珠”把记录过的情绪变成漂浮的气泡，沉淀成情绪地图。</p>
+    <p><b>和答案之书最贴近：</b>几乎就是同一个场景。吉祥物 + 渐变 + 情绪气泡这套语言可以直接借鉴，不照搬形象。</p>
+    <a href="https://apps.apple.com/cn/app/id6752279134" target="_blank" rel="noopener">App Store ↗</a></div></div>
+  <div class="card"><img src="tadapal.png" alt="TadaPal App Store 截图"><div class="b"><h3>TadaPal（Tada） <span class="tag">健康宠物 + 习惯 · iOS</span></h3>
+    <p><b>看点：</b>红色小怪兽宠物陪你完成每天的小任务，宠物随你的坚持“长大”；粗体大字 + 高饱和蓝红，活泼。</p>
+    <p><b>可借的：</b>“你做一件小事，伙伴就成长一点”的养成反馈，正好对应答案之书的七天实验和打卡。<b>顾虑：</b>配色太亮太跳，不适合低落时打开。</p>
+    <a href="https://apps.apple.com/cn/app/id6744717070" target="_blank" rel="noopener">App Store ↗</a></div></div>
+  <div class="card"><img src="manus.png" alt="Manus 首页"><div class="b"><h3>Manus <span class="tag">通用 Agent</span></h3>
+    <p><b>看点：</b>米白底、几乎只有一个居中的大输入框、黑色实心按钮、衬线 Logo；极简到只剩“说吧”。</p>
+    <p><b>可借的：</b>首页就是一个安静的大输入框，没有说明书式的功能墙；任务进行中的进度展示方式。</p>
+    <a href="https://manus.im" target="_blank" rel="noopener">官网 ↗</a></div></div>
+</div>
+<p class="sub" style="margin-top:14px">Memos 在下面 B 组。Cue 和 Muse 我没能确定是哪一款：App Store 上叫 Cue 的是戒瘾治疗用的 CueSelf，叫 Muse 的有好几个日记应用。发我链接或开发者名，我补进来。</p>
+
+<h2>A · 角色陪伴型：有一个“形象”陪着你</h2>
+<div class="grid">
+  <div class="card"><img src="airi.png" alt="AIRI 界面"><div class="b"><h3>AIRI <span class="tag">moeru-ai/airi</span><span class="tag">Vue · Live2D/VRM</span></h3>
+    <p><b>看点：</b>左边是会动的角色，右边是半透明对话面板；浅蓝波浪顶栏、格纹底，整体轻、可爱。</p>
+    <p><b>适合答案之书的部分：</b>“有个人在”的存在感、聊天只占屏幕一侧。<b>顾虑：</b>二次元形象偏娱乐，情绪低落时不一定想看卡通角色；需要立绘/模型资源。</p>
+    <a href="https://github.com/moeru-ai/airi" target="_blank" rel="noopener">GitHub ↗</a> · <a href="https://airi.moeru.ai" target="_blank" rel="noopener">在线演示 ↗</a></div></div>
+  <div class="card"><img src="open-llm-vtuber.png" alt="Open-LLM-VTuber 界面"><div class="b"><h3>Open-LLM-VTuber <span class="tag">Live2D · 语音</span></h3>
+    <p><b>看点：</b>全屏场景背景 + Live2D 角色 + 底部字幕和输入条，语音优先，还有桌宠模式。</p>
+    <p><b>适合答案之书的部分：</b>沉浸感、字幕式回复、语音陪伴。<b>顾虑：</b>设置面板很工程化；场景插画需要版权素材。</p>
+    <a href="https://github.com/Open-LLM-VTuber/Open-LLM-VTuber" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+</div>
+
+<h2>B · 日记时间线型：安静、像在写字</h2>
+<div class="grid">
+  <div class="card"><img src="memos.png" alt="Memos 界面"><div class="b"><h3>Memos <span class="tag">usememos/memos</span><span class="tag">约 64k ★</span></h3>
+    <p><b>看点：</b>左侧日历 + 标签，右侧一条条卡片时间线；纸感暖白、细线、留白多，信息密但不吵。</p>
+    <p><b>适合答案之书的部分：</b>“这些天”的日历、日记/信/答案页按时间排成一条流，打开就是自己的生活记录。<b>顾虑：</b>偏工具，陪伴感要靠对话入口补。</p>
+    <a href="https://github.com/usememos/memos" target="_blank" rel="noopener">GitHub ↗</a> · <a href="https://demo.usememos.com" target="_blank" rel="noopener">在线演示 ↗</a></div></div>
+</div>
+
+<h2>C · 极简 AI 工作台型：助手列表 + 对话</h2>
+<div class="grid">
+  <div class="card"><img src="cherry-studio.png" alt="Cherry Studio 界面"><div class="b"><h3>Cherry Studio <span class="tag">CherryHQ/cherry-studio</span><span class="tag">约 53k ★</span></h3>
+    <p><b>看点：</b>macOS 原生感：左侧“助手”列表（每个有头像），中间对话，顶部标签页；黑白灰为主，非常干净。</p>
+    <p><b>适合答案之书的部分：</b>把每个技能做成一个“助手”头像，列表即入口。<b>顾虑：</b>生产力工具气质，情感温度低。</p>
+    <a href="https://github.com/CherryHQ/cherry-studio" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+  <div class="card"><img src="open-webui.png" alt="Open WebUI 官网"><div class="b"><h3>Open WebUI <span class="tag">open-webui/open-webui</span></h3>
+    <p><b>看点：</b>极度克制的单色排版、大留白、天空实景图做氛围。</p>
+    <p><b>适合答案之书的部分：</b>用一张自然图片（天空、海、窗外）定情绪基调，文字少而稳。<b>顾虑：</b>产品内页偏 ChatGPT 式通用界面。</p>
+    <a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+  <div class="card"><img src="lobehub.png" alt="LobeHub"><div class="b"><h3>LobeHub（原 LobeChat） <span class="tag">lobehub/lobehub</span></h3>
+    <p><b>看点：</b>表情化的角色头像、渐变暖色块、助手市场卡片；IM 网关图示（Telegram、飞书、微信……）。</p>
+    <p><b>适合答案之书的部分：</b>技能市场卡片、给每个技能一个有表情的头像。<b>顾虑：</b>信息量大、偏“团队 Agent 平台”。</p>
+    <a href="https://github.com/lobehub/lobehub" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+  <div class="card"><img src="lobehub-gateway.png" alt="LobeHub IM 网关"><div class="b"><h3>LobeHub · IM 网关 <span class="tag">README 截图</span></h3>
+    <p>“在你已经在用的聊天软件里找到它”这一块的表达方式，可以借给答案之书的“手机渠道”设置页。</p></div></div>
+</div>
+
+<h2>D · 个人 Agent 网关型</h2>
+<div class="grid">
+  <div class="card"><img src="openclaw.png" alt="OpenClaw 官网"><div class="b"><h3>OpenClaw <span class="tag">openclaw/openclaw</span></h3>
+    <p><b>看点：</b>深色、ASCII 字符画、珊瑚橙强调色、等宽字体，极客气质。</p>
+    <p><b>适合答案之书的部分：</b>skill / 渠道 / 记忆这套架构（已经借了）。<b>顾虑：</b>视觉太冷太硬，不适合情绪陪伴。</p>
+    <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+  <div class="card"><img src="current-qi.jpg" alt="答案之书旧版截图"><div class="b"><h3>答案之书 · 旧版 <span class="tag">对照</span></h3>
+    <p>暖白底、陶土色强调、光球头像、情绪天气 + 技能卡片。你觉得丑的话，可以直接说哪里不对：配色、字体、布局、还是“不够像一个人”。</p></div></div>
+</div>
+
+<h2>可以选的方向</h2>
+<div class="dir">
+  <div><b>A · 有个“形象”</b><p>参考 AIRI：左边一个会呼吸的形象（可以不是二次元，比如插画风的小动物或抽象光团），右边对话。最有陪伴感。</p></div>
+  <div><b>B · 像一本日记</b><p>参考 Memos：日历 + 时间线，聊天、日记、信、答案页都是一条流里的卡片。最安静、最私人。</p></div>
+  <div><b>C · 干净的助手列表</b><p>参考 Cherry Studio：每个技能是一个有头像的“助手”，左列表右对话。最好上手。</p></div>
+  <div><b>M · Mindee 式（推荐）</b><p>一个有性格的小吉祥物（会随心情变颜色/表情）+ 大面积柔和渐变 + 情绪气泡地图；首页像 Manus 一样只留一个安静的输入框；记录页用 Memos 的日历时间线。</p></div>
+  <div><b>混合</b><p>比如“B 的首页 + A 的对话页”，或者“C 的结构 + Open WebUI 的自然图片氛围”。</p></div>
+</div>
+</main>
+<dialog id="zoom"><img alt=""></dialog>
+<script>
+const d=document.getElementById('zoom'),im=d.querySelector('img');
+document.querySelectorAll('.card img').forEach(i=>i.addEventListener('click',()=>{im.src=i.src;im.alt=i.alt;d.showModal();}));
+d.addEventListener('click',()=>d.close());
+</script>
+</body>
+</html>
