@@ -10,6 +10,7 @@ import asyncio
 import contextlib
 import datetime as dt
 import logging
+from socket import socket
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException
@@ -17,7 +18,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from answerlife import commands, emotions, reflections, routines, soul
+from answerlife import __version__, commands, emotions, reflections, routines, soul
 from answerlife import skills as registry
 from answerlife.agent import Agent
 from answerlife.channels import CHANNELS, Bot, new_pair_code, owner
@@ -294,7 +295,7 @@ def put_settings(body: SettingsIn) -> dict:
 @app.get("/api/status")
 def status() -> dict:
     return {**_model_label(), "home": str(get_settings().home), "channels": rt().channel_status(),
-            "consent": rt().store.consent()}
+            "consent": rt().store.consent(), "app": "answerlife", "version": __version__}
 
 
 @app.post("/api/channels/{channel}/pair")
@@ -308,8 +309,10 @@ app.mount("/assets", StaticFiles(directory=WEB / "assets"), name="assets")
 app.mount("/pages", StaticFiles(directory=str(get_settings().pages_dir)), name="pages")
 
 
-def serve(host: str | None = None, port: int | None = None, log_level: str = "warning") -> None:
+def serve(host: str | None = None, port: int | None = None, log_level: str = "warning",
+          *, listener: socket | None = None) -> None:
     import uvicorn
 
     s = get_settings()
-    uvicorn.run(app, host=host or s.host, port=port or s.port, log_level=log_level)
+    config = uvicorn.Config(app, host=host or s.host, port=port or s.port, log_level=log_level)
+    uvicorn.Server(config).run(sockets=[listener] if listener is not None else None)

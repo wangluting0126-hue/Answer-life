@@ -70,12 +70,14 @@ ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= answerlife serve
 | --- | --- |
 | `answerlife setup` | 配置模型和可选的手机渠道 |
 | `answerlife doctor` | 检查本地数据库、引文库并请求模型验证连通性 |
-| `answerlife` | 同时启动终端对话、网页与已配置的 IM |
+| `answerlife` | 开启终端对话，端口空闲时同时启动网页与已配置的 IM |
 | `answerlife chat` | 只开启终端对话 |
 | `answerlife serve` | 运行网页、API、IM 和提醒循环 |
 | `answerlife skills list` | 查看内置与已安装技能 |
 | `answerlife skills install ./my-skill` | 安装一个含 `SKILL.md` 的目录 |
 | `answerlife pair telegram` | 生成 Telegram 机器人配对码 |
+
+网页已由 `answerlife serve` 启动时，另开终端运行 `answerlife chat` 即可。如果 `8020` 显示「已被占用」，用 `lsof -nP -iTCP:8020 -sTCP:LISTEN` 查看监听进程。也可以运行 `PORT=8021 answerlife serve`，再打开 <http://127.0.0.1:8021>。
 
 进入终端或已配对的机器人后，输入 `/skills` 查看技能，`/skill answer-book` 开始翻书，`/mood 7 有点累` 打卡，`/pages` 找最近的答案页。模型配置、飞书／钉钉、完整命令和自定义技能示例见 [命令手册](docs/cli.md)。
 

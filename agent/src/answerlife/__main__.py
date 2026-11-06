@@ -1,6 +1,6 @@
 """命令行入口。
 
-answerlife              终端对话，同时在后台跑网页版（http://localhost:8020）和 IM 渠道
+answerlife              终端对话，端口空闲时同时启动网页和 IM 渠道
 answerlife chat         只开终端对话
 answerlife serve        只开服务（网页 + 接口 + IM + 实验回访），适合常驻
 answerlife setup        引导配置模型与 IM，写到数据目录的 .env
@@ -12,10 +12,13 @@ answerlife doctor       自检
 from __future__ import annotations
 
 import argparse
+import errno
+import json
 import os
+import socket
 import sys
 import threading
-import time
+from urllib.request import ProxyHandler, build_opener
 
 from rich.console import Console
 from rich.panel import Panel
@@ -34,23 +37,55 @@ def _banner() -> None:
                             border_style="blue"))
 
 
+def _matches_local_web(host: str, port: int, data_home: str) -> bool:
+    local_host = {"0.0.0.0": "127.0.0.1", "::": "::1"}.get(host, host)
+    if ":" in local_host:
+        local_host = f"[{local_host}]"
+    try:
+        opener = build_opener(ProxyHandler({}))
+        with opener.open(f"http://{local_host}:{port}/api/status", timeout=0.8) as response:
+            status = json.load(response)
+    except (OSError, ValueError):
+        return False
+    return isinstance(status, dict) and (
+        status.get("app"), status.get("version"), status.get("home")
+    ) == ("answerlife", __version__, data_home)
+
+
 def chat(with_server: bool) -> None:
     from answerlife import commands
     from answerlife.settings import get_settings
 
+    settings = get_settings()
+    listener = None
+    web_url = None
     if with_server:
+        family = socket.AF_INET6 if ":" in settings.host else socket.AF_INET
+        try:
+            listener = socket.create_server((settings.host, settings.port), family=family)
+        except OSError as error:
+            if error.errno != errno.EADDRINUSE:
+                raise
+            if _matches_local_web(settings.host, settings.port, str(settings.home)):
+                web_url = settings.base_url
+                console.print(f"[dim]网页版已在 {settings.port} 运行，继续进入终端对话。[/]")
+            else:
+                console.print(f"[yellow]端口 {settings.port} 已被其他服务占用。已开启终端对话。[/]")
+
+    if listener is not None:
         from answerlife import server
-        threading.Thread(target=server.serve, daemon=True, name="al-server").start()
-        time.sleep(0.6)
         store, agent = server.rt().store, server.rt().agent
+        threading.Thread(target=server.serve, kwargs={"listener": listener},
+                         daemon=True, name="al-server").start()
+        web_url = settings.base_url
     else:
         from answerlife.agent import Agent
         from answerlife.store import Store
-        store = Store(get_settings().db_path)
+        store = Store(settings.db_path)
         agent = Agent(store)
     _banner()
-    if with_server:
-        console.print(f"[dim]网页版：{get_settings().base_url}[/]")
+    if web_url:
+        console.print(f"[dim]网页版：{web_url}[/]")
     console.print("\n[italic]今天过得怎么样？想说什么都可以。发 /skills 看看我会的几件事。[/]\n")
     conv = None
     while True:

@@ -53,7 +53,7 @@ ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= answerlife serve
 | `answerlife --version` | 查看安装的版本 |
 | `answerlife setup` | 配置模型和渠道 |
 | `answerlife doctor` | 检查数据库、引文库和模型连通性 |
-| `answerlife` | 开启终端对话，同时运行网页和已配置的渠道 |
+| `answerlife` | 开启终端对话，端口空闲时同时启动网页和已配置的渠道 |
 | `answerlife chat` | 只开终端对话 |
 | `answerlife serve` | 开启网页、API、已配置的渠道和提醒循环 |
 | `answerlife serve --port 8021` | 在指定端口启动 |
@@ -62,7 +62,9 @@ ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= answerlife serve
 | `answerlife skills install ./my-skill` | 从目录安装，也可传入含一个技能的 Git 仓库地址 |
 | `answerlife skills remove my-skill` | 移除已安装技能，内置技能在网页「我的」停用 |
 
-端口改变时，推荐用 `PORT=8021 answerlife serve`，让监听端口和生成的答案页链接使用同一个端口。服务默认在 `127.0.0.1` 监听，可通过 `/health` 检查服务，通过 `/docs` 查看 API。
+网页已由 `answerlife serve` 启动时，另开终端用 `answerlife chat`。直接运行 `answerlife` 也会保留正在运行的服务，只开启终端对话。如果占用端口的是其他服务，终端会提示占用情况。
+
+服务默认监听 `127.0.0.1:8020`。遇到端口冲突，可以用 `lsof -nP -iTCP:8020 -sTCP:LISTEN` 查看监听进程，或用 `PORT=8021 answerlife serve` 改用其他端口。用 `PORT` 设置端口时，监听端口和生成的答案页链接会一起更新。可通过 `/health` 检查服务，通过 `/docs` 查看 API。
 
 ### 对话内命令
 
