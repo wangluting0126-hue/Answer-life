@@ -1,57 +1,61 @@
-# 答案之书 · Answer Life
+# 我的答案之书 · Answer Life
 
-带着一个问题来，带着一页书和一件小事回去。
+> 「我投了十二份简历，几乎没回音。现在有点不知道从哪改起。」
 
-## 运行 Agent
+一个陪你把问题想具体的本地 Agent。你可以只聊几句，也可以翻出一页书，带走一件这周能试的小事。
 
-最新版的网页、终端和 IM Agent 在 [agent/](agent/)，带有小鸟情绪记录、答案页、周报月报和个人资料。安装好 uv 后，可以先体验不需要密钥的网页演示。
+[快速开始](#快速开始) · [能做什么](#能做什么) · [架构](#架构) · [使用说明](agent/README.md) · [独立 Skill](answer-book/)
+
+![答案之书首页的晚霞湖景](agent/src/answerlife/web/assets/lakeside-cover.jpg)
+
+## 能做什么
+
+| 入口 | 可以怎么用 |
+| --- | --- |
+| 首页 | 点一只情绪鸟记下此刻，或写一句今天放不下的话。 |
+| 对话 | 让小鸟接住你说的事。想借书想一想时，点「翻一页书」。 |
+| 答案页 | 读一句有出处的原文、一种不同的看法，以及一个七天内能试的小动作。支持复制、下载文字和打印。 |
+| 记录 | 看日记、心情日历、答案页和未来信。周报、月报先选书摘，再把实际记录写成短札。 |
+| 我的 | 修改资料和头像，查看「我对你的了解」，管理技能、记忆和通知。 |
+
+## 快速开始
+
+需要 [uv](https://docs.astral.sh/uv/) 和 Python 3.11 或以上。
 
 ```bash
-cd agent
+git clone https://github.com/wangluting0126-hue/Answer-life.git
+cd Answer-life/agent
 uv sync --locked
-AI_PROVIDER=mock uv run --locked answerlife serve
+ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= uv run --locked answerlife serve
 ```
 
-打开 <http://127.0.0.1:8020>。完整启动和模型配置见 [Agent 使用说明](agent/README.md)。下面是原来可单独安装到 AI 客户端的技能及其演示。
+打开 <http://127.0.0.1:8020>。在网页里点「翻一页书」，发送「测试出页」，就能看到一张完整示范页。模拟模式使用虚构样例。
 
-通过简短对话，把一个具体的人生纠结放到有出处的书页旁边，留下一个新的视角、一条可验证的判据和一个七天小实验。
+要用 DeepSeek，回到 `agent/` 运行 `uv run --locked answerlife setup`，选 `deepseek` 并在终端提示里填入自己的 Key。启动、渠道配对和验收命令见 [Agent 使用说明](agent/README.md)。
 
-## 四种使用方式
+## 架构
 
-- **快速翻页**：带来一句困惑，生成一张短答案页。
-- **一起读**：通过几轮对话补齐事实，生成个性化阅读页。
-- **专题卷宗**：围绕转折点，将两到三个问题写成一章。
-- **周/月回看**：根据授权保存的本地记录，回到上次实验与实际结果。
-
-## 先看示例
-
-下载项目后，用浏览器打开 [开始阅读.html](开始阅读.html)。里面包含职业、时间、关系、专题卷宗和周回看五组虚构演示；每组都有 HTML、Markdown 和来源快照。
-
-## 使用 skill
-
-[answer-book/](answer-book/) 是完整的 skill 目录，入口为 [SKILL.md](answer-book/SKILL.md)。将整个目录放到你所用 AI 客户端支持的技能位置，再请求使用 `$answer-book`。
-
-例如：
-
-> 请用答案之书。我学了很多课程，但作品集一直没有开始，帮我翻一页。
-
-个性化对话与文案由 AI 客户端完成；Python 只负责查引文、渲染和记录。它不是独立聊天应用，不需要内置 API Key。
-
-## 本地运行
-
-需要 Python 3.9 或更新版本，无额外 pip 依赖。
-
-```bash
-cd answer-book
-python3 scripts/answer_book.py quotes --theme '自我与身份' --query '不器'
-python3 scripts/answer_book.py render --data examples/career.json --out output/答案页.html
-python3 scripts/verify.py
+```mermaid
+flowchart LR
+    Entry["网页 · 终端 · IM"] --> Agent["Agent：安全分流、上下文、工具循环"]
+    Agent <--> Model["DeepSeek · Claude · OpenAI 兼容"]
+    Agent <--> Tools["技能、情绪、日记、记忆与未来信"]
+    Tools --> Book["核验引文库 → HTML / Markdown / JSON"]
+    Tools --> Store["SQLite 与本地记录"]
+    Store --> Review["周报 / 月报"]
 ```
 
-## 设计与验证
+模型决定何时追问、读技能或调工具。原文由核验过的引文 ID 注入，报告时间范围由程序计算。回看的书卡和本地短札不需要模型；点击「请模型再写一版」后，才会将当期少量记录发给已配置的提供商。
 
-页面参考 [Life Designer](https://github.com/Jackychen-12/life-designer) 的纸面阅读、自然对话与克制排版，模板独立编写。详见 [设计说明](设计与验收/设计说明.md) 和 [验收说明](设计与验收/验收说明.md)。
+### 目录
 
-20 项程序检查通过。本地浏览器截图验收受当前工具策略限制，未宣称已完成。57 条候选引文来自初始设计包，其中一条边栏概要已禁用；其余保留原始核验口径，未宣称全部重新校订。
+| 路径 | 用途 |
+| --- | --- |
+| [agent/](agent/) | 可运行的网页、终端和 IM Agent |
+| [agent/src/answerlife/skills/](agent/src/answerlife/skills/) | 应用内置技能与引文库 |
+| [agent/tests/](agent/tests/) | Agent、回看、持久化和安全边界的测试 |
+| [answer-book/](answer-book/) | 可以单独安装到 AI 客户端的原始 Skill |
+| [开始阅读.html](开始阅读.html) | 可直接用浏览器打开的五组虚构示例 |
+| [设计与验收/](设计与验收/) | 原始 Skill 的设计与验收材料 |
 
-历史仅在用户授权后保存于指定本地目录。示例为虚构素材，仓库不包含实际用户的个人求职会话或申请材料。
+使用说明的组织参考 [WealthPilot](https://github.com/Jackychen-12/wealthpilot)，阅读体验参考 [Life Designer](https://github.com/Jackychen-12/life-designer)。
