@@ -2,7 +2,7 @@
 
 **一个本地运行的个人陪伴 Agent。把说不清的事聊具体，借一段有出处的书摘换个角度，再带走一件这周能试的小事。**
 
-[实测演示](#实测演示) · [安装和启动](#安装和启动) · [命令手册](agent/README.md) · [技术架构](#技术架构) · [验收与下一步](#验收与下一步)
+[实测演示](#实测演示) · [安装和启动](#安装和启动) · [文档导航](docs/) · [HTTP API](docs/api.md) · [技术架构](#技术架构) · [验收与下一步](#验收与下一步)
 
 ![答案之书实际运行的首页，包含翻书入口和八只情绪鸟](agent/docs/demo/home.jpg)
 
@@ -77,7 +77,16 @@ ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= answerlife serve
 | `answerlife skills install ./my-skill` | 安装一个含 `SKILL.md` 的目录 |
 | `answerlife pair telegram` | 生成 Telegram 机器人配对码 |
 
-进入终端或已配对的机器人后，输入 `/skills` 查看技能，`/skill answer-book` 开始翻书，`/mood 7 有点累` 打卡，`/pages` 找最近的答案页。模型配置、飞书／钉钉、完整命令和自定义技能示例见 [Agent 使用手册](agent/README.md)。
+进入终端或已配对的机器人后，输入 `/skills` 查看技能，`/skill answer-book` 开始翻书，`/mood 7 有点累` 打卡，`/pages` 找最近的答案页。模型配置、飞书／钉钉、完整命令和自定义技能示例见 [命令手册](docs/cli.md)。
+
+## 选择接入方式
+
+| 如果你想 | 从这里开始 |
+| --- | --- |
+| 在电脑上体验，或接入自己的聊天机器人 | [命令与配置](docs/cli.md) |
+| 在自己的程序里复用对话、技能和答案页 | [HTTP API](docs/api.md) · [Python 示例](examples/chat.py) |
+| 在支持 Agent Skills 的客户端中使用翻书能力 | [独立 Skill 与应用内技能](docs/skills.md) |
+| 修改代码、验证功能或提交贡献 | [架构](docs/architecture.md) · [贡献指南](CONTRIBUTING.md) |
 
 ## 技术架构
 
@@ -98,20 +107,7 @@ flowchart LR
     DB --> Routine["提醒循环 · 未来信、晚安、实验回看"]
 ```
 
-一次翻页会经过四步。
-
-1. **整理上下文。** 对话入口提交用户原话和会话 ID。Agent 读取近期消息、当前日期和技能索引，并根据安全检查调整可用工具。终端和 IM 的打卡、查记忆等命令有直接处理路径。
-2. **按需激活技能。** 模型根据任务决定追问或调用 `use_skill`，需要时再读取参考文件。已激活的技能和会话关联，自定义技能的内容通过说明文件交给模型。
-3. **把生成和核验分开。** 模型负责选择候选引文、解释与行动建议。程序验证引文 ID、出处和页面字段，再输出 HTML、Markdown、JSON。网页收到结构化结果后展示答案卡，用户可直接打开。
-4. **写入记录并回看。** SQLite 保存会话及记录索引，成品落到本地文件。回看按实际日期范围选记录和书卡，默认由程序生成短札。点「请模型再写一版」才发起该次模型请求。
-
-| 从哪读代码 | 负责什么 |
-| --- | --- |
-| [入口与网关](agent/src/answerlife/server.py) · [CLI](agent/src/answerlife/__main__.py) · [渠道](agent/src/answerlife/channels/) | 接入、命令、API 和渠道配对 |
-| [Agent](agent/src/answerlife/agent.py) · [模型适配](agent/src/answerlife/llm.py) · [工具](agent/src/answerlife/tools.py) | 单轮编排、会话锁、模型调用与工具结果 |
-| [技能注册](agent/src/answerlife/skills.py) · [答案页](agent/src/answerlife/book.py) | 技能发现、按需加载、引文与出页 |
-| [本地存储](agent/src/answerlife/store.py) · [回看](agent/src/answerlife/reflections.py) · [提醒](agent/src/answerlife/routines.py) | 数据保存、周期总结与提醒 |
-| [网页](agent/src/answerlife/web/index.html) · [独立 Skill](answer-book/) | 浏览器体验与可单独使用的技能目录 |
+Agent 读取当前会话和技能索引，按需激活 `SKILL.md`。模型负责追问、选择工具和组织回复，程序负责核验引文、生成文件、授权检查和保存。技术选型、模块位置和调用路径见 [技术架构详解](docs/architecture.md)。
 
 应用默认绑定本机地址，配置和记录位于 `~/.answerlife`，个人资料和头像在浏览器本地保存。启用在线模型后，当前任务需要的对话及上下文会发给所选的提供商。
 
@@ -121,4 +117,4 @@ flowchart LR
 
 优先处理周报和月报重写后刷新丢失，让用户能找回已生成的内容。其次是约束模型引用时间和写入记忆时保留原话，并让报告始终用答案之书的视角对用户说话。回归时用同日跨会话、明日计划和页面刷新三个场景对照复测。
 
-本地测试命令、可选渠道与日常运行说明见 [Agent 使用手册](agent/README.md)。写法与体验参考 [WealthPilot](https://github.com/Jackychen-12/wealthpilot) 和 [Life Designer](https://github.com/Jackychen-12/life-designer)。
+本地测试命令、可选渠道与日常运行说明见 [命令手册](docs/cli.md)。写法与体验参考 [WealthPilot](https://github.com/Jackychen-12/wealthpilot) 和 [Life Designer](https://github.com/Jackychen-12/life-designer)。
