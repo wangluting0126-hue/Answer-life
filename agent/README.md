@@ -1,79 +1,139 @@
-# Answer Life Agent
+# Answer Life 使用手册
 
-> 有时候，你需要的只是把卡住的那一刻说出来。再读一页，看看下一步能不能小一点。
+[项目介绍和截图](../README.md) · [安装](#安装) · [命令](#终端命令) · [手机渠道](#接入手机渠道) · [自定义技能](#自定义技能) · [测试](#开发与测试)
 
-Answer Life 是单用户、本地运行的情绪陪伴 Agent。网页、终端和手机聊天共用一套技能和记录。你决定什么时候聊天、什么时候翻书，以及哪些事情值得留到下次。
+## 安装
 
-[快速开始](#快速开始) · [能力](#能力) · [运行方式](#运行方式) · [开发与测试](#开发与测试)
-
-## 能力
-
-| 想做的事 | 入口和结果 |
-| --- | --- |
-| 先安静一下 | 在首页选一只情绪鸟，或用「先停一下」做一分钟呼吸。 |
-| 理清一件事 | 「翻一页书」会从你的原话出发，找一段可核对的原文，留下一种异议和一件七天内能尝试的小事。 |
-| 说一段难开口的话 | 「难开口的话」练习把情况、感受和请求说得具体。 |
-| 换个角度想 | 记录一个念头，看看事实支持哪些解释。 |
-| 给今天收个尾 | 记下睡前三件小事，或写一封到日期才打开的未来信。 |
-| 回头看一眼 | 「记录」里有情绪日历、日记和答案页，也有从书卡起笔的周报、月报。 |
-| 管理自己的资料 | 首访资料可以跳过。「我的」可以编辑资料、查看允许留下的记忆或删除记录。 |
-
-## 快速开始
-
-需要 Python 3.11+ 和 [uv](https://docs.astral.sh/uv/)。下面的命令都在 `agent/` 目录运行。
-
-### 先跑一遍演示
+需要 Git、Python 3.11+ 和 [uv](https://docs.astral.sh/uv/)。从仓库根目录安装独立命令。
 
 ```bash
-uv sync --locked
-ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= uv run --locked answerlife serve
+uv tool install ./agent
+uv tool update-shell
 ```
 
-打开 <http://127.0.0.1:8020>，填写资料或跳过，在首页选一只鸟，再点「翻一页书」并发送「测试出页」。打开聊天里生成的答案页，然后到「记录」查看周报和月报。
+重新打开终端，运行 `answerlife --help`。如果从源码开发，在 `agent/` 里运行 `uv sync --locked`，然后把下文的 `answerlife` 换成 `uv run --locked answerlife`。
 
-### 接入自己的模型
+## 第一次使用
 
 ```bash
-uv run --locked answerlife setup
-uv run --locked answerlife serve
+answerlife setup
+answerlife doctor
+answerlife serve
 ```
 
-在 `setup` 中选择提供商，并按终端提示填写 Key。也可用 [.env.example](.env.example) 配置本机的 `~/.answerlife/.env`。
+1. 配置时选择 `deepseek`，按提示输入自己的 Key，模型名称用账户可调用且支持工具调用的模型。手机渠道可先跳过。
+2. 自检会向模型发一条简短的连通性请求，同时检查本地数据库与引文库。
+3. 启动后打开 <http://127.0.0.1:8020>。填写名字或跳过，选一只情绪鸟，再点「翻一页书」说一件具体的事。生成后可点击对话中的答案卡。
+4. 在「记录」里找答案页、日记、信和心情，进入周报或月报。在「我的」管理资料、长期记忆授权和提醒。
 
-| 提供商 | 配置 |
+想先体验时，运行下面的命令并在网页里发送「测试出页」。
+
+```bash
+ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= answerlife serve
+```
+
+### 模型配置
+
+`setup` 写入 `~/.answerlife/.env`。也可以按 [配置示例](.env.example) 编辑该文件。进程环境变量优先于文件配置，修改后重启服务。
+
+| 提供商 | 主要配置 |
 | --- | --- |
 | DeepSeek | `AI_PROVIDER=deepseek`、`DEEPSEEK_API_KEY`、`DEEPSEEK_MODEL` |
-| Claude | `AI_PROVIDER=anthropic`、`ANTHROPIC_API_KEY`、`ANTHROPIC_MODEL` |
-| OpenAI 兼容服务 | `AI_PROVIDER=openai`、`OPENAI_BASE_URL`、`OPENAI_API_KEY`、`OPENAI_MODEL` |
+| Anthropic | `AI_PROVIDER=anthropic`、`ANTHROPIC_API_KEY`、`ANTHROPIC_MODEL` |
+| OpenAI 兼容接口 | `AI_PROVIDER=openai`、`OPENAI_BASE_URL`、`OPENAI_API_KEY`、`OPENAI_MODEL` |
 | 本地演示 | `AI_PROVIDER=mock` |
 
-使用 DeepSeek 时，可以从 [官方支持的模型](https://api-docs.deepseek.com/) 中选一个支持工具调用的名称。验收真实模型时让 `AI_FALLBACK` 留空，便于确认实际提供商。
+验收某个提供商时，将 `AI_FALLBACK` 留空，便于判断请求实际落到了哪里。
 
-## 运行方式
+## 终端命令
 
 | 命令 | 用途 |
 | --- | --- |
-| `uv run --locked answerlife` | 终端对话，同时启动网页和已配置的 IM |
-| `uv run --locked answerlife chat` | 只开终端对话 |
-| `uv run --locked answerlife serve` | 只开网页服务、接口和已配置的 IM |
-| `uv run --locked answerlife doctor` | 检查模型配置、数据库和技能 |
-| `uv run --locked answerlife skills list` | 查看可用技能 |
-| `uv run --locked answerlife skills install <目录或仓库>` | 安装可读的 Skill 说明 |
+| `answerlife --help` | 显示可用子命令 |
+| `answerlife --version` | 查看安装的版本 |
+| `answerlife setup` | 配置模型和渠道 |
+| `answerlife doctor` | 检查数据库、引文库和模型连通性 |
+| `answerlife` | 开启终端对话，同时运行网页和已配置的渠道 |
+| `answerlife chat` | 只开终端对话 |
+| `answerlife serve` | 开启网页、API、已配置的渠道和提醒循环 |
+| `answerlife serve --port 8021` | 在指定端口启动 |
+| `answerlife pair telegram` | 生成一次性机器人配对码，渠道也可选 `feishu` 或 `dingtalk` |
+| `answerlife skills list` | 查看内置与已安装的技能 |
+| `answerlife skills install ./my-skill` | 从目录安装，也可传入含一个技能的 Git 仓库地址 |
+| `answerlife skills remove my-skill` | 移除已安装技能，内置技能在网页「我的」停用 |
 
-Telegram、飞书和钉钉可以在 `setup` 中填写机器人凭证。飞书和钉钉先分别安装 `feishu`、`dingtalk` 可选依赖。服务运行后，用 `uv run --locked answerlife pair <渠道>` 生成六位配对码，再发给自己的机器人。
+端口改变时，推荐用 `PORT=8021 answerlife serve`，让监听端口和生成的答案页链接使用同一个端口。服务默认在 `127.0.0.1` 监听，可通过 `/health` 检查服务，通过 `/docs` 查看 API。
 
-IM 内可用 `/skills`、`/skill good-things`、`/mood 7 有点累`、`/memory`、`/forget 3` 和 `/new`。未来信、晚安小结和实验回看提醒随服务运行，实际送达需要可用的已配对渠道。
+### 对话内命令
 
-## 一次翻页怎么完成
+下列命令输入到终端对话或已配对的机器人。
 
-1. 网页或终端把对话交给同一个 [Agent](src/answerlife/agent.py)。安全层先判断是否需要暂停正常工具流程。
-2. 模型接收已启用的技能与会话上下文，自行决定是否追问、激活技能和调用工具。
-3. 答案页使用 [引文库](src/answerlife/skills/answer-book/quotes/) 的原文 ID，渲染器校验字段并生成 HTML、Markdown、JSON。
-4. 答案页回到对话和时间线。用户允许保存长期记录后，可以留下实验并回看结果。周报、月报根据日期范围读取真实记录，再选书卡写短札。
+| 输入 | 效果 |
+| --- | --- |
+| `/help` | 查看对话内帮助 |
+| `/skills` | 列出当前启用的技能 |
+| `/skill answer-book` | 开启一次翻书对话 |
+| `/skill calm-breath` | 开启呼吸练习 |
+| `/mood 7 有点累` | 记录一次 1 到 10 分的心情 |
+| `/moods` | 查看近 14 天打卡 |
+| `/pages` | 查看最近生成的答案页 |
+| `/consent on` 或 `/consent off` | 同意或停止之后的长期记忆保存 |
+| `/memory` 与 `/forget 3` | 查看记忆与删除指定条目 |
+| `/new` | 开始新会话 |
+| `/status` | 查看当前模型和数据目录 |
+| `/quit` | 退出终端对话 |
 
-应用默认监听本机。SQLite、生成的答案页和本机配置放在 `ANSWERLIFE_HOME`，默认目录为 `~/.answerlife`。网页个人资料和头像由浏览器本地保存。启用在线模型时，对话及相关上下文会交给配置的提供商。需要模型改写周报或月报时，由用户在报告页主动发起。
+## 接入手机渠道
+
+Telegram 随基础安装提供。飞书和钉钉需要额外依赖，可以从仓库根目录按需安装。
+
+```bash
+uv tool install --force './agent[feishu]'
+# 也可以选择钉钉
+uv tool install --force './agent[dingtalk]'
+```
+
+1. 在相应平台准备自己的机器人，运行 `answerlife setup`，选择配置手机渠道并填写所需凭证。
+2. 启动 `answerlife serve`。保持服务运行，在另一个终端执行 `answerlife pair telegram`，或替换成对应渠道。
+3. 10 分钟内把生成的 6 位数字发给自己的机器人，再发 `/help` 确认可用。
+4. 「我的」可以配置晚安小结、未来信和实验回看。发送依赖服务持续运行、渠道可用且已经配对。默认生成的本地网页链接在运行服务的电脑上打开。
+
+## 自定义技能
+
+技能目录的入口是 `SKILL.md`，开头有小写字母、数字和连字符组成的 `name`，以及用于判断何时调用的 `description`。下面是一份可以复制的最小示例。
+
+```bash
+mkdir -p my-skill
+cat > my-skill/SKILL.md <<'SKILL'
+---
+name: my-skill
+description: 用户想把一件拖延的小事拆成十分钟能试的动作时使用。
+---
+
+先问清想做的事和卡住的地方，再给一个十分钟内能尝试的动作。
+SKILL
+answerlife skills install ./my-skill
+answerlife skills list
+answerlife chat
+```
+
+进入对话后输入 `/skill my-skill`。已安装技能在 `~/.answerlife/skills/`，同名时用户版本优先。第三方技能作为说明文字及参考资料读取，运行工具由 Agent 内置注册。应用已经自带 `answer-book`，独立版及其可读示例也随仓库提供。[独立 Skill](../answer-book/)
+
+## 数据在哪
+
+| 路径 | 内容 |
+| --- | --- |
+| `~/.answerlife/.env` | 模型和渠道配置 |
+| `~/.answerlife/answerlife.db` | 会话、心情、记忆、日记、未来信和页面索引 |
+| `~/.answerlife/pages/` | HTML、Markdown 和 JSON 答案页 |
+| `~/.answerlife/book/` | 经授权保存的七天实验记录 |
+| `~/.answerlife/skills/` | 用户安装的技能 |
+
+用 `ANSWERLIFE_HOME` 可以切换整套数据目录。网页个人资料和头像保存在当前浏览器。在线模型接收回答所需的上下文，周报月报只有点击重写时才发送该次回看素材。回看页面当前会在刷新后回到本地短札。
 
 ## 开发与测试
+
+在 `agent/` 运行。
 
 ```bash
 uv sync --locked --extra dev
@@ -81,13 +141,6 @@ uv run --locked --extra dev pytest -q
 uv run --locked python -B src/answerlife/skills/answer-book/scripts/verify.py
 ```
 
-| 核验路径 | 核验点 |
-| --- | --- |
-| 应用回归 | 对话、工具、路由、配对契约、持久化、同意控制与安全分流 |
-| Skill 检查 | 引文核验、字段校验、HTML 导出、回看边界和记录去重 |
-| DeepSeek 实跑 | 隔离测试目录，关闭模型回退，通过 `/api/chat` 验证澄清、查引文与出页，再核对打卡、日记和周/月短札 |
-| 网页素材 | 首页、情绪鸟、羽毛和报告尾图都随源码安装 |
+应用测试覆盖 Agent 编排、工具、存储、同意控制和路由。Skill 校验检查引文、页面和实验记录。浏览器验收另用隔离数据跑过真实 DeepSeek，验证了从首页进对话、出页、保存、回看与配置的流程。外部 IM 消息和提醒送达需另用实际机器人验证。
 
-网页由 [FastAPI](src/answerlife/server.py) 提供，界面在 [web/index.html](src/answerlife/web/index.html)。模型适配在 [llm.py](src/answerlife/llm.py)，本地数据在 [store.py](src/answerlife/store.py)，回看在 [reflections.py](src/answerlife/reflections.py)。
-
-[文风和样本来源](docs/answer-book-voice.md) · [界面参考](docs/ui-references/index.html) · [小鸟与羽毛素材包](小鸟动画/)
+[文风和样本来源](docs/answer-book-voice.md) · [实测截图](docs/demo/) · [界面参考](docs/ui-references/index.html)

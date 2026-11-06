@@ -1,61 +1,124 @@
 # 我的答案之书 · Answer Life
 
-> 「我投了十二份简历，几乎没回音。现在有点不知道从哪改起。」
+**一个本地运行的个人陪伴 Agent。把说不清的事聊具体，借一段有出处的书摘换个角度，再带走一件这周能试的小事。**
 
-一个陪你把问题想具体的本地 Agent。你可以只聊几句，也可以翻出一页书，带走一件这周能试的小事。
+[实测演示](#实测演示) · [安装和启动](#安装和启动) · [命令手册](agent/README.md) · [技术架构](#技术架构) · [验收与下一步](#验收与下一步)
 
-[快速开始](#快速开始) · [能做什么](#能做什么) · [架构](#架构) · [使用说明](agent/README.md) · [独立 Skill](answer-book/)
+![答案之书实际运行的首页，包含翻书入口和八只情绪鸟](agent/docs/demo/home.jpg)
 
-![答案之书首页的晚霞湖景](agent/src/answerlife/web/assets/lakeside-cover.jpg)
+## 为什么做
 
-## 能做什么
+投了十几份简历，只有一封自动确认，原本只是一次求职反馈，聊着聊着很容易变成「是不是我不适合这个行业」。这时候，一个更有用的对话要能把事实、猜测和还缺的信息分开。等用户想行动时，再一起选一个足够小的动作。
 
-| 入口 | 可以怎么用 |
+答案之书把这个过程做成一条可以回看的路径。用户可以只聊、做一次呼吸或记下心情。主动翻书时，Agent 会先理解具体处境，给出一段可核对的原文和一种不同解释，最后把下一步写进答案页。隔一阵再回来，能接着看尝试过什么、有哪些新记录。
+
+| 用户卡在哪里 | 产品怎么帮 |
 | --- | --- |
-| 首页 | 点一只情绪鸟记下此刻，或写一句今天放不下的话。 |
-| 对话 | 让小鸟接住你说的事。想借书想一想时，点「翻一页书」。 |
-| 答案页 | 读一句有出处的原文、一种不同的看法，以及一个七天内能试的小动作。支持复制、下载文字和打印。 |
-| 记录 | 看日记、心情日历、答案页和未来信。周报、月报先选书摘，再把实际记录写成短札。 |
-| 我的 | 修改资料和头像，查看「我对你的了解」，管理技能、记忆和通知。 |
+| 只知道不舒服，说不清哪件事 | 选情绪鸟、做呼吸，或从一个具体场景开始聊 |
+| 聊完得到一堆通用建议，很难动手 | 把用户的原话、引文、另一种解释和七天尝试放在同一页 |
+| 当时想明白了，过几天又忘了 | 答案页、日记、心情和未来信进入记录，可按周和月回看 |
+| 担心 AI 乱记或乱引 | 展示引文出处和依据，允许查看、删除记忆，长期记忆由用户授权 |
 
-## 快速开始
+## 实测演示
 
-需要 [uv](https://docs.astral.sh/uv/) 和 Python 3.11 或以上。
+这一轮用虚构的求职资料，在本地网页里调用 DeepSeek。先让 Agent 追问卡住的场景，再补充「两周投了十二份、覆盖三个方向、只用一版简历、仅有一次自动确认」。成品把问题收敛成一个七天尝试：挑一份目标岗位，把要求和自己做过的事逐条对照。
+
+| 第一步 · 说清楚一件事 | 第二步 · 翻出一页可回看的答案 |
+| --- | --- |
+| ![Agent 先追问最近一次卡住的场景](agent/docs/demo/clarify.jpg) | [![对话里实际生成的答案卡，点击查看完整成品](agent/docs/demo/answer-card.jpg)](agent/docs/demo/answer-page.jpg) |
+
+| 情绪回看 · 圆形日历与小鸟 | 月报 · 书摘开头，再写短札 |
+| --- | --- |
+| ![情绪地图和圆形日历](agent/docs/demo/calendar.jpg) | ![月报书卡与短札](agent/docs/demo/monthly.jpg) |
+
+[月报页尾实拍](agent/docs/demo/monthly-footer.jpg) · [五组可离线阅读的独立 Skill 示例](开始阅读.html)
+
+## 安装和启动
+
+需要 Git、Python 3.11+ 和 [uv](https://docs.astral.sh/uv/)。以下命令在 macOS 或 Linux 的终端运行。
+
+### 装成可直接调用的命令
 
 ```bash
 git clone https://github.com/wangluting0126-hue/Answer-life.git
-cd Answer-life/agent
-uv sync --locked
-ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= uv run --locked answerlife serve
+cd Answer-life
+uv tool install ./agent
+uv tool update-shell
 ```
 
-打开 <http://127.0.0.1:8020>。在网页里点「翻一页书」，发送「测试出页」，就能看到一张完整示范页。模拟模式使用虚构样例。
+重新打开终端，运行 `answerlife --help` 确认可用。安装后可在任意目录运行 `answerlife`。
 
-要用 DeepSeek，回到 `agent/` 运行 `uv run --locked answerlife setup`，选 `deepseek` 并在终端提示里填入自己的 Key。启动、渠道配对和验收命令见 [Agent 使用说明](agent/README.md)。
+```bash
+answerlife setup
+answerlife doctor
+answerlife serve
+```
 
-## 架构
+在 `setup` 里选 `deepseek`，输入你自己的 Key，手机渠道先选 N。打开 <http://127.0.0.1:8020>，填写资料或跳过，点一只鸟，点击「翻一页书」，再说一件最近反复在想的事。
+
+### 没有模型 Key，先体验
+
+```bash
+ANSWERLIFE_HOME="$(mktemp -d)" AI_PROVIDER=mock AI_FALLBACK= answerlife serve
+```
+
+点「翻一页书」后发送「测试出页」，即可打开内置示范页。这次演示使用临时数据目录。开发者可以在 `agent/` 运行 `uv sync --locked`，再用 `uv run --locked answerlife ...` 执行同样的子命令。
+
+### 像使用 OpenClaw 一样，从命令进入
+
+| 命令 | 用途 |
+| --- | --- |
+| `answerlife setup` | 配置模型和可选的手机渠道 |
+| `answerlife doctor` | 检查本地数据库、引文库并请求模型验证连通性 |
+| `answerlife` | 同时启动终端对话、网页与已配置的 IM |
+| `answerlife chat` | 只开启终端对话 |
+| `answerlife serve` | 运行网页、API、IM 和提醒循环 |
+| `answerlife skills list` | 查看内置与已安装技能 |
+| `answerlife skills install ./my-skill` | 安装一个含 `SKILL.md` 的目录 |
+| `answerlife pair telegram` | 生成 Telegram 机器人配对码 |
+
+进入终端或已配对的机器人后，输入 `/skills` 查看技能，`/skill answer-book` 开始翻书，`/mood 7 有点累` 打卡，`/pages` 找最近的答案页。模型配置、飞书／钉钉、完整命令和自定义技能示例见 [Agent 使用手册](agent/README.md)。
+
+## 技术架构
+
+网页和 IM 由同一个 FastAPI 进程接收。终端可直接运行 Agent，也可用默认命令和网页共用一个进程。每个入口可以有自己的会话，共用本地记录和技能。
 
 ```mermaid
 flowchart LR
-    Entry["网页 · 终端 · IM"] --> Agent["Agent：安全分流、上下文、工具循环"]
-    Agent <--> Model["DeepSeek · Claude · OpenAI 兼容"]
-    Agent <--> Tools["技能、情绪、日记、记忆与未来信"]
-    Tools --> Book["核验引文库 → HTML / Markdown / JSON"]
-    Tools --> Store["SQLite 与本地记录"]
-    Store --> Review["周报 / 月报"]
+    Web["浏览器 · FastAPI"] --> Agent["Agent · 会话与安全分流"]
+    CLI["终端 · answerlife"] --> Agent
+    IM["Telegram / 飞书 / 钉钉"] --> Agent
+    Agent <--> Model["模型适配 · DeepSeek / Anthropic / OpenAI 兼容"]
+    Agent <--> Tools["内置工具 · 技能加载、查引文、出页、记录"]
+    Tools --> Skills["SKILL.md 与按需读取的参考资料"]
+    Tools --> Renderer["核验引文 ID → HTML / Markdown / JSON"]
+    Agent <--> DB[("SQLite · 对话、记忆与记录")]
+    Tools --> DB
+    DB --> Review["周报 / 月报 · 书卡与短札"]
+    DB --> Routine["提醒循环 · 未来信、晚安、实验回看"]
 ```
 
-模型决定何时追问、读技能或调工具。原文由核验过的引文 ID 注入，报告时间范围由程序计算。回看的书卡和本地短札不需要模型；点击「请模型再写一版」后，才会将当期少量记录发给已配置的提供商。
+一次翻页会经过四步。
 
-### 目录
+1. **整理上下文。** 对话入口提交用户原话和会话 ID。Agent 读取近期消息、当前日期和技能索引，并根据安全检查调整可用工具。终端和 IM 的打卡、查记忆等命令有直接处理路径。
+2. **按需激活技能。** 模型根据任务决定追问或调用 `use_skill`，需要时再读取参考文件。已激活的技能和会话关联，自定义技能的内容通过说明文件交给模型。
+3. **把生成和核验分开。** 模型负责选择候选引文、解释与行动建议。程序验证引文 ID、出处和页面字段，再输出 HTML、Markdown、JSON。网页收到结构化结果后展示答案卡，用户可直接打开。
+4. **写入记录并回看。** SQLite 保存会话及记录索引，成品落到本地文件。回看按实际日期范围选记录和书卡，默认由程序生成短札。点「请模型再写一版」才发起该次模型请求。
 
-| 路径 | 用途 |
+| 从哪读代码 | 负责什么 |
 | --- | --- |
-| [agent/](agent/) | 可运行的网页、终端和 IM Agent |
-| [agent/src/answerlife/skills/](agent/src/answerlife/skills/) | 应用内置技能与引文库 |
-| [agent/tests/](agent/tests/) | Agent、回看、持久化和安全边界的测试 |
-| [answer-book/](answer-book/) | 可以单独安装到 AI 客户端的原始 Skill |
-| [开始阅读.html](开始阅读.html) | 可直接用浏览器打开的五组虚构示例 |
-| [设计与验收/](设计与验收/) | 原始 Skill 的设计与验收材料 |
+| [入口与网关](agent/src/answerlife/server.py) · [CLI](agent/src/answerlife/__main__.py) · [渠道](agent/src/answerlife/channels/) | 接入、命令、API 和渠道配对 |
+| [Agent](agent/src/answerlife/agent.py) · [模型适配](agent/src/answerlife/llm.py) · [工具](agent/src/answerlife/tools.py) | 单轮编排、会话锁、模型调用与工具结果 |
+| [技能注册](agent/src/answerlife/skills.py) · [答案页](agent/src/answerlife/book.py) | 技能发现、按需加载、引文与出页 |
+| [本地存储](agent/src/answerlife/store.py) · [回看](agent/src/answerlife/reflections.py) · [提醒](agent/src/answerlife/routines.py) | 数据保存、周期总结与提醒 |
+| [网页](agent/src/answerlife/web/index.html) · [独立 Skill](answer-book/) | 浏览器体验与可单独使用的技能目录 |
 
-使用说明的组织参考 [WealthPilot](https://github.com/Jackychen-12/wealthpilot)，阅读体验参考 [Life Designer](https://github.com/Jackychen-12/life-designer)。
+应用默认绑定本机地址，配置和记录位于 `~/.answerlife`，个人资料和头像在浏览器本地保存。启用在线模型后，当前任务需要的对话及上下文会发给所选的提供商。
+
+## 验收与下一步
+
+已完成的本地浏览器验收覆盖资料、头像、情绪、真实模型出页、历史恢复、记录和周月报等 27 项。20 项通过、5 项未通过、1 项部分确认、1 项未执行，共记录 13 次成功的 DeepSeek 请求。
+
+优先处理周报和月报重写后刷新丢失，让用户能找回已生成的内容。其次是约束模型引用时间和写入记忆时保留原话，并让报告始终用答案之书的视角对用户说话。回归时用同日跨会话、明日计划和页面刷新三个场景对照复测。
+
+本地测试命令、可选渠道与日常运行说明见 [Agent 使用手册](agent/README.md)。写法与体验参考 [WealthPilot](https://github.com/Jackychen-12/wealthpilot) 和 [Life Designer](https://github.com/Jackychen-12/life-designer)。
